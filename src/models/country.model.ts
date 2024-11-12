@@ -1,7 +1,7 @@
 export interface Country {
     name: {
         common: string;
-    },
+    };
     capital: string[];
     cca3: string;
     flags: {
