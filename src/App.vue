@@ -17,6 +17,7 @@ const fetchCountries = async ()=>{
   try{
     const {data} = await axiosClient.get("/all");
     countries.value = data
+    totalItems.value = countries.value.length
   }catch(error){
     console.log(error)
   }
@@ -34,11 +35,16 @@ const sliceCountries = (currentCountries) => {
 
 onMounted(()=>{
   fetchCountries()
-  sliceCountries(countries.value)
 })
 
-watch([countries],()=>{
-  sliceCountries(countries.value)
+const changePage = (newPage) =>{
+  page.value = newPage
+}
+
+watch([countries,page, filteredCountries],()=>{
+  sliceCountries(
+    filteredCountries.value.length <= 0 &&  search.value==="" ? countries.value : filteredCountries.value
+  )
 })
 </script>
 
@@ -55,8 +61,8 @@ watch([countries],()=>{
       />
     </div>
     <div class="mb-8 flex justify-center space-x-6">
-      <button class="border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-200">Previous</button>
-      <button class="border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-200">Next</button>
+      <button @click="$event=>changePage(page - 1)" :disabled="page <= 1" :class="{'opacity-50 cursor-not-allowed': page <= 1}" class="border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-200">Previous</button>
+      <button @click="$event=>changePage(page + 1)" :disabled="page >= totalItems / itemsPerPage" :class="{'opacity-50 cursor-not-allowed': page >= totalItems / itemsPerPage}"  class="border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-200">Next</button>
     </div>
     <CountryList :countries="paginatedCountries"/>
   </div>
