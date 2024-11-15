@@ -19,14 +19,20 @@
 </script>
 <template>
     <div>
-        <h1 class="text-2xl font-bold text-center">{{country?.name.common}}</h1>
-        <div class="flex flex-col md:flex-row justify-center items-center gap-10">
-            <img :src="country?.flags.png" :alt="country?.name.common" class="w-1/2 md:w-1/4">
-            <div class="flex flex-col gap-5">
-                <p class="text-lg font-bold">Population: {{country?.population}}</p>
-                <p class="text-lg font-bold">Region: {{country?.region}}</p>
-                <p class="text-lg font-bold">Capital: {{country?.capital ? country?.capital[0] : 'N/A'}}</p>
-                <p class="text-lg font-bold">Languages: {{country?.languages ? Object.values(country?.languages).join(', ') : 'N/A'}}</p>
+        <div class="grid grid-cols-2 gap-8">
+            <div>
+                <img :src="country?.flags.svg" :alt="country?.flags.alt" class="w-full h-96">
+            </div>
+            <div class="bg-gray-200 p-8 rounded-lg">
+                <h1 class="text-4xl font-bold text-left mb-5">{{country?.name.common}}</h1>
+                <p class="text-lg"><span class="font-bold">Population:</span> {{country?.population}}</p>
+                <p class="text-lg"><span class="font-bold">Region:</span> {{country?.region}}</p>
+                <p class="text-lg"><span class="font-bold">Capital:</span> {{country?.capital ? country?.capital[0] : 'N/A'}}</p>
+                <p class="text-lg"><span class="font-bold">Languages:</span> {{country?.languages ? Object.values(country?.languages).join(', ') : 'N/A'}}</p>
+                <p class="text-lg">
+                    <span class="font-bold">Currencies:</span>
+                    {{ country?.currencies ? Object.values(country?.currencies).map(currency => currency.name).join(', ') : 'N/A'}}
+                </p>
             </div>
         </div>
     </div>
