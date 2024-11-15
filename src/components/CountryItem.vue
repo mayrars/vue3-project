@@ -11,8 +11,8 @@ interface Props{
 defineProps<Props>()
 </script>
 <template>
-    <div class="h-56 sm:h-36">
-        <img class="h-56 sm:h-32 w-full" :src="country.flags.png" :alt="country.name.common" >
+    <div class="h-96 sm:h-52">
+        <img class="h-96 sm:h-52 w-full" :src="country.flags.png" :alt="country.name.common" >
     </div>
     <div class="p-5">
         <h4 class="text-xl font-bold text-gray-700">{{ country.name.common }}</h4>
